@@ -1,0 +1,24 @@
+[
+	[
+		{
+			"speaker" : "giffany",
+			"dialog" : "Heyaaaa! Ooh you're looking great today, you do something with your hair?",
+			"newSpeaker" : "false"
+		},
+		{
+			"speaker" : "giffany",
+			"dialog" : "Anyways, welcome to Catching Feels, your first minigame!",
+			"newSpeaker" : "false"
+		},
+		{
+			"speaker" : "giffany",
+			"dialog" : "It's simple, all you gotta do is use the left and right arrows to control the cart, and make sure you collect as many of my hearts as possible!",
+			"newSpeaker" : "true"
+		},
+		{
+			"speaker" : "giffany2",
+			"dialog" : "I really like you, so don't disappoint me! haha~",
+			"newSpeaker" : "false"
+		}
+    ]
+]
