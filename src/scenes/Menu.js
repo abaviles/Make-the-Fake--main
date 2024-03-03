@@ -19,31 +19,53 @@ class Menu extends Phaser.Scene {
 
         // load bitmap font
         this.load.bitmapFont('gem_font', 'font/gem.png', 'font/gem.xml')
+        
+        //decoration
+        this.load.image('flowers', 'img/flowers.png')
+        this.load.image('stars', 'img/stars.png')
     }
 
     create() {
         // add title text
         this.intro = (this.add.video(0, -20, 'intro').setOrigin(0,0)).setScale(0.5, 0.5)
         this.intro.play()
-        this.playButton = (this.add.image(1300, 550, 'play').setScale(0.2, 0.2)).setOrigin(0,0)
-        
+
+        this.playButton = (this.add.image(1400, 550, 'play').setScale(0.2, 0.2)).setOrigin(0.5,0.5)
+        this.playButton.setInteractive()
+
+        this.flowers = this.add.tileSprite(0, 0, 1280, 720, 'flowers').setOrigin(0,0)
+        this.stars = this.add.tileSprite(0, 0, 1280, 720, 'stars').setOrigin(0,0)
+
         this.intro.on('complete', () => {
             this.tweens.add({
                 targets:this.playButton,
-                x: 920,
+                x: 980,
                 duration: 500,
                 ease: 'power2'})
+
         }) 
        
 
         // create input
-        cursors = this.input.keyboard.createCursorKeys()
+        //cursors = this.input.keyboard.createCursorKeys()
     }
 
     update() {
+        //decoration
+        this.flowers.tilePositionX -= 1
+        this.stars.tilePositionX -= 2
+
         // wait for player input
-        if(Phaser.Input.Keyboard.JustDown(cursors.space)) {
-            this.scene.start("cutScene1")
-        }
+        this.playButton.on('pointerover',() => { ((this.playButton).setScale(0.23,0.23)).setOrigin(0.5, 0.5) })
+        this.playButton.on('pointerout',() => { ((this.playButton).setScale(0.2,0.2)).setOrigin(0.5, 0.5) })
+        this.playButton.on('pointerdown',() => { this.scene.start("cutScene1") })
+        
+
+
+
+        // if(Phaser.Input.Keyboard.JustDown(cursors.space)) {
+        //     this.scene.start("cutScene1")
+        // }
+
     }
 }
