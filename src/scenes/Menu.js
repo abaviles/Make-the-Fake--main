@@ -14,6 +14,8 @@ class Menu extends Phaser.Scene {
         this.load.image('dialogbox', 'img/dialogbox.png')
         this.load.image('giffany', 'img/giffanytalk1.png')
         this.load.image('giffany2', 'img/giffanytalk2.png')
+        this.load.image('play', 'img/play_button.png')
+        this.load.video('intro', 'img/game_intro.mp4', true)
 
         // load bitmap font
         this.load.bitmapFont('gem_font', 'font/gem.png', 'font/gem.xml')
@@ -21,8 +23,18 @@ class Menu extends Phaser.Scene {
 
     create() {
         // add title text
-        this.add.bitmapText(centerX, centerY - 32, 'gem_font', 'ROMANCE ACADEMY 7', 32).setOrigin(0.5)
-        this.add.bitmapText(centerX, centerY, 'gem_font', 'Press SPACE to start', 16).setOrigin(0.5)
+        this.intro = (this.add.video(0, -20, 'intro').setOrigin(0,0)).setScale(0.5, 0.5)
+        this.intro.play()
+        this.playButton = (this.add.image(1300, 550, 'play').setScale(0.2, 0.2)).setOrigin(0,0)
+        
+        this.intro.on('complete', () => {
+            this.tweens.add({
+                targets:this.playButton,
+                x: 920,
+                duration: 500,
+                ease: 'power2'})
+        }) 
+       
 
         // create input
         cursors = this.input.keyboard.createCursorKeys()
