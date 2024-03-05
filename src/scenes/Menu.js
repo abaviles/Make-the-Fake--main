@@ -15,7 +15,15 @@ class Menu extends Phaser.Scene {
         this.load.image('giffany', 'img/giffanytalk1.png')
         this.load.image('giffany2', 'img/giffanytalk2.png')
         this.load.image('play', 'img/play_button.png')
+        this.load.image('class', 'img/classroom.png')
+        this.load.image('dots', 'img/polkadot.png')
         this.load.video('intro', 'img/game_intro.mp4', true)
+
+        //audio
+        this.load.audio('start', 'sfx/start.wav')
+        this.load.audio('sparkle', 'sfx/sparkle.wav',  {volume: 0.1})
+        this.load.audio('beep', 'sfx/beep.wav', {volume: 0.1})
+
 
         // load bitmap font
         this.load.bitmapFont('gem_font', 'font/gem.png', 'font/gem.xml')
@@ -36,6 +44,7 @@ class Menu extends Phaser.Scene {
         this.flowers = this.add.tileSprite(0, 0, 1280, 720, 'flowers').setOrigin(0,0)
         this.stars = this.add.tileSprite(0, 0, 1280, 720, 'stars').setOrigin(0,0)
 
+      
         this.intro.on('complete', () => {
             this.tweens.add({
                 targets:this.playButton,
@@ -55,10 +64,13 @@ class Menu extends Phaser.Scene {
         this.flowers.tilePositionX -= 1
         this.stars.tilePositionX -= 2
 
-        // wait for player input
-        this.playButton.on('pointerover',() => { ((this.playButton).setScale(0.23,0.23)).setOrigin(0.5, 0.5) })
+        // wait for player input, fade transition
+        this.playButton.once('pointerover',() => { ((this.playButton).setScale(0.23,0.23)).setOrigin(0.5, 0.5)})
         this.playButton.on('pointerout',() => { ((this.playButton).setScale(0.2,0.2)).setOrigin(0.5, 0.5) })
-        this.playButton.on('pointerdown',() => { this.scene.start("cutScene1") })
+        this.playButton.once('pointerdown',() => {  this.cameras.main.fadeOut(500, 0, 0, 0)
+            //this.sound.play('sparkle')
+            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+            this.scene.start('cutScene1')}) })
         
 
 

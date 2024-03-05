@@ -15,8 +15,8 @@ class Cutscene1 extends Phaser.Scene {
         this.TEXT_MAX_WIDTH = 715	    // max width of text within box
 
         this.NEXT_TEXT = '[SPACE]'	    // text to display for next prompt
-        this.NEXT_X = 1030			    // next text prompt x-position
-        this.NEXT_Y = 674			    // next text prompt y-position
+        this.NEXT_X = 1005			    // next text prompt x-position
+        this.NEXT_Y = 660			    // next text prompt y-position
 
         this.LETTER_TIMER = 10		    // # ms each letter takes to "type" onscreen
 
@@ -37,20 +37,38 @@ class Cutscene1 extends Phaser.Scene {
     }
 
     create() {
+        this.cameras.main.fadeIn(500, 0, 0, 0)
+            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+                this.time.delayedCall(200, () => {
+                    this.scene.start('cutScene1')
+                })
+            })
         // parse dialog from JSON file
         this.dialog = this.cache.json.get('dialog')
         //console.log(this.dialog)
+        //Background
+        this.class = this.add.sprite(0, 0, 'class').setOrigin(0,0) 
+        this.dots = this.add.tileSprite(0, 0, 1280, 720, 'dots').setOrigin(0,0)
 
+        // ready the character dialog images offscreen
+        this.giffany = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y+8, 'giffany').setOrigin(0, 1)
+        this.giffany2 = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y+8, 'giffany2').setOrigin(0, 1)
         // add dialog box sprite
-        this.dialogbox = this.add.sprite(this.DBOX_X, this.DBOX_Y, 'dialogbox').setOrigin(0)
+        this.dialogbox = this.add.sprite(this.DBOX_X + 8, this.OFFSCREEN_Y, 'dialogbox').setOrigin(0, 0)
 
         // initialize dialog text objects (with no text)
         this.dialogText = this.add.bitmapText(this.TEXT_X, this.TEXT_Y, this.DBOX_FONT, '', this.TEXT_SIZE)
         this.nextText = this.add.bitmapText(this.NEXT_X, this.NEXT_Y, this.DBOX_FONT, '', this.TEXT_SIZE)
 
-        // ready the character dialog images offscreen
-        this.giffany = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y+8, 'giffany').setOrigin(0, 1)
-        this.giffany2 = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y+8, 'giffany2').setOrigin(0, 1)
+        //d-box tween
+        this.tweens.add({
+            targets: this.dialogbox,
+            x: this.DBOX_X,
+            y: this.DBOX_Y,
+            duration: this.tweenDuration,
+            ease: 'power1'
+            
+        })
         // input
         cursors = this.input.keyboard.createCursorKeys()
 
@@ -59,8 +77,11 @@ class Cutscene1 extends Phaser.Scene {
     }
 
     update() {
+
+        this.dots.tilePositionX += 2
         // check for spacebar press
         if(Phaser.Input.Keyboard.JustDown(cursors.space) && !this.dialogTyping) {
+            this.sound.play('beep')
             this.typeText() // trigger dialog
         }
     }
@@ -101,14 +122,23 @@ class Cutscene1 extends Phaser.Scene {
                     targets: this[this.dialogLastSpeaker],
                     x: this.OFFSCREEN_X,
                     duration: this.tweenDuration,
-                    ease: 'Linear',
+                    ease: 'power1',
                     onComplete: () => {
                         this.scene.start('menuScene')
                     }
                 })
+                this.tweens.add({
+                    targets: this.dialogbox,
+                    y: this.OFFSCREEN_Y,
+                    duration: this.tweenDuration,
+                    ease: 'power1'
+                    
+                })
             }
             // make text box invisible
-            this.dialogbox.visible = false
+            //this.dialogbox.visible = false
+                
+            
 
         } else {
             // if not, set current speaker
@@ -121,7 +151,7 @@ class Cutscene1 extends Phaser.Scene {
                         targets: this[this.dialogLastSpeaker],
                         x: this.OFFSCREEN_X,
                         duration: this.tweenDuration,
-                        ease: 'Linear'
+                        ease: 'power1'
                     })
                 }
                 // tween in new speaker's image
@@ -129,7 +159,7 @@ class Cutscene1 extends Phaser.Scene {
                     targets: this[this.dialogSpeaker],
                     x: this.DBOX_X + 50,
                     duration: this.tweenDuration,
-                    ease: 'Linear'
+                    ease: 'power1'
                 })
             } 
 
