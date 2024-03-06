@@ -37,28 +37,34 @@ class Cutscene1 extends Phaser.Scene {
     }
 
     create() {
-        this.cameras.main.fadeIn(4000, 0, 0, 0)
+        this.cameras.main.fadeIn(2500, 0, 0, 0)
             this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
                 this.time.delayedCall(5000, () => {
                     this.scene.start('cutScene1')
-                })
+                }) 
             })
 
+       
         //BG MUSIC
-        this.playMusic = this.sound.add(('bg music'), {volume: 0.3})
+        this.playMusic = this.sound.add(('bg music'), {volume: 0.15})
         this.playMusic.loop = true
         this.playMusic.play()
 
         // parse dialog from JSON file
         this.dialog = this.cache.json.get('dialog')
-        //console.log(this.dialog)
+        
         //Background
         this.class = this.add.sprite(0, 0, 'class').setOrigin(0,0) 
         this.dots = this.add.tileSprite(0, 0, 1280, 720, 'dots').setOrigin(0,0)
+        
+        //Pillar
+        this.pillar = this.add.sprite(0, 0, 'pillar').setOrigin(0,0)
+        this.pillar2 = this.add.sprite(1280, 0, 'pillar').setOrigin(1,0)
 
         // ready the character dialog images offscreen
         this.giffany = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y+8, 'giffany').setOrigin(0, 1)
         this.giffany2 = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y+8, 'giffany2').setOrigin(0, 1)
+       
         // add dialog box sprite
         this.dialogbox = this.add.sprite(this.DBOX_X + 8, this.OFFSCREEN_Y, 'dialogbox').setOrigin(0, 0)
 
@@ -73,8 +79,13 @@ class Cutscene1 extends Phaser.Scene {
             y: this.DBOX_Y,
             duration: this.tweenDuration,
             ease: 'power1'
-            
         })
+
+
+
+        
+
+
         // input
         cursors = this.input.keyboard.createCursorKeys()
 
@@ -87,10 +98,8 @@ class Cutscene1 extends Phaser.Scene {
         this.dots.tilePositionX += 2
         // check for spacebar press
         if(Phaser.Input.Keyboard.JustDown(cursors.space) && !this.dialogTyping) {
-            this.sound.play('beep')
+            this.sound.play('beep', {volume: 0.3})
             this.typeText() // trigger dialog
-        } else {
-            this.playMusic.stop()
         }
     }
 
@@ -124,11 +133,10 @@ class Cutscene1 extends Phaser.Scene {
             // here I'm exiting the final conversation to return to the title...
 
             // ...but you could add alternate logic if needed
-            
+           
             console.log('End of Conversations')
             
             
-
             // tween out prior speaker's image
             if(this.dialogLastSpeaker) {
                 this.tweens.add({
@@ -136,6 +144,20 @@ class Cutscene1 extends Phaser.Scene {
                     x: this.OFFSCREEN_X,
                     duration: this.tweenDuration,
                     ease: 'power1',
+                    onComplete: () => {
+                        //this.playMusic.stop()
+                        this.cameras.main.fadeOut(2000, 0, 0, 0)
+                        this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+                        this.scene.start('menuScene')},
+
+                        this.tweens.add({
+                            targets:  this.playMusic,
+                            volume:   0,
+                            duration: 2000
+                        })
+                )
+                        //THIS WILL BE WHEN IT TRANSITIONS TO THE FIRST MINIGAME! 
+                    }
                 })
                 this.tweens.add({
                     targets: this.dialogbox,
