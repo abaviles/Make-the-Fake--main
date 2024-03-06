@@ -37,12 +37,18 @@ class Cutscene1 extends Phaser.Scene {
     }
 
     create() {
-        this.cameras.main.fadeIn(500, 0, 0, 0)
+        this.cameras.main.fadeIn(4000, 0, 0, 0)
             this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
-                this.time.delayedCall(200, () => {
+                this.time.delayedCall(5000, () => {
                     this.scene.start('cutScene1')
                 })
             })
+
+        //BG MUSIC
+        this.playMusic = this.sound.add(('bg music'), {volume: 0.3})
+        this.playMusic.loop = true
+        this.playMusic.play()
+
         // parse dialog from JSON file
         this.dialog = this.cache.json.get('dialog')
         //console.log(this.dialog)
@@ -83,6 +89,8 @@ class Cutscene1 extends Phaser.Scene {
         if(Phaser.Input.Keyboard.JustDown(cursors.space) && !this.dialogTyping) {
             this.sound.play('beep')
             this.typeText() // trigger dialog
+        } else {
+            this.playMusic.stop()
         }
     }
 
@@ -114,8 +122,13 @@ class Cutscene1 extends Phaser.Scene {
         // make sure we haven't run out of conversations...
         if(this.dialogConvo >= this.dialog.length) {
             // here I'm exiting the final conversation to return to the title...
+
             // ...but you could add alternate logic if needed
+            
             console.log('End of Conversations')
+            
+            
+
             // tween out prior speaker's image
             if(this.dialogLastSpeaker) {
                 this.tweens.add({
@@ -123,21 +136,17 @@ class Cutscene1 extends Phaser.Scene {
                     x: this.OFFSCREEN_X,
                     duration: this.tweenDuration,
                     ease: 'power1',
-                    onComplete: () => {
-                        this.scene.start('menuScene')
-                    }
                 })
                 this.tweens.add({
                     targets: this.dialogbox,
                     y: this.OFFSCREEN_Y,
                     duration: this.tweenDuration,
                     ease: 'power1'
-                    
                 })
-            }
-            // make text box invisible
-            //this.dialogbox.visible = false
+            
                 
+
+            }
             
 
         } else {

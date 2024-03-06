@@ -22,7 +22,8 @@ class Menu extends Phaser.Scene {
         //audio
         this.load.audio('start', 'sfx/start.wav')
         this.load.audio('sparkle', 'sfx/sparkle.wav',  {volume: 0.1})
-        this.load.audio('beep', 'sfx/beep.wav', {volume: 0.1})
+        this.load.audio('beep', 'sfx/beep.wav', {volume: 0.5})
+        this.load.audio('bg music', 'sfx/bg_cutscene.mp3')
 
 
         // load bitmap font
@@ -66,11 +67,16 @@ class Menu extends Phaser.Scene {
 
         // wait for player input, fade transition
         this.playButton.once('pointerover',() => { ((this.playButton).setScale(0.23,0.23)).setOrigin(0.5, 0.5)})
-        this.playButton.on('pointerout',() => { ((this.playButton).setScale(0.2,0.2)).setOrigin(0.5, 0.5) })
-        this.playButton.once('pointerdown',() => {  this.cameras.main.fadeOut(500, 0, 0, 0)
-            //this.sound.play('sparkle')
+        this.playButton.once('pointerout',() => { ((this.playButton).setScale(0.2,0.2)).setOrigin(0.5, 0.5) })
+        
+        if(this.input.activePointer.isDown) {
+            this.cameras.main.fadeOut(2000, 0, 0, 0)
             this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
-            this.scene.start('cutScene1')}) })
+                this.scene.start('cutScene1')}) }
+        }
+        
+           
+           
         
 
 
@@ -80,4 +86,3 @@ class Menu extends Phaser.Scene {
         // }
 
     }
-}
