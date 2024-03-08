@@ -49,7 +49,7 @@ class Cutscene1 extends Phaser.Scene {
         this.playMusic = this.sound.add(('bg music'), {volume: 0.15})
         this.playMusic.loop = true
         this.playMusic.play()
-
+        
         // parse dialog from JSON file
         this.dialog = this.cache.json.get('dialog')
         
