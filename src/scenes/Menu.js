@@ -22,14 +22,14 @@ class Menu extends Phaser.Scene {
 
         //audio
         this.load.audio('start', 'sfx/start.wav')
-        this.load.audio('sparkle', 'sfx/sparkle.wav')
+        this.load.audio('sparkle', 'sfx/sparkle.mp3')
         this.load.audio('beep', 'sfx/beep.wav')
         this.load.audio('bg music', 'sfx/bg_cutscene.mp3')
         this.load.audio('menu music', 'sfx/menu_music.mp3')
 
 
         // load bitmap font
-        this.load.bitmapFont('gem_font', 'font/gem.png', 'font/gem.xml')
+        this.load.bitmapFont('depixel_font', 'font/depixel.png', 'font/depixel.xml')
         
         //decoration
         this.load.image('flowers', 'img/flowers.png')
@@ -38,8 +38,12 @@ class Menu extends Phaser.Scene {
 
     create() {
         // add title text
-        this.menuMusic = this.sound.add(('menu music'), {volume: 0.25})
+        this.menuMusic = this.sound.add(('menu music'), {volume: 0.5})
         this.menuMusic.play()
+
+        this.startSound = this.sound.add(('beep'), {volume: 0.25})
+        this.sparkleSound = this.sound.add(('sparkle'))
+
         
         this.intro = (this.add.video(0, -20, 'intro').setOrigin(0,0)).setScale(0.5, 0.5)
         this.intro.play()
@@ -48,7 +52,13 @@ class Menu extends Phaser.Scene {
 
         this.playButton = (this.add.image(1400, 550, 'play').setScale(0.2, 0.2)).setOrigin(0.5,0.5)
         this.playButton.setInteractive()
+        
+        //button physics
+        this.playButton.on(Phaser.Input.Events.GAMEOBJECT_POINTER_OUT,() => {((this.playButton).setScale(0.2,0.2)).setOrigin(0.5, 0.5)})
+        this.playButton.on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER,() => {((this.playButton).setScale(0.23,0.23)).setOrigin(0.5, 0.5), this.startSound.play()})
         this.playButton.once(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,() => {this.cameras.main.fadeOut(2000, 0, 0, 0)
+                //SOUND FX, THEN FADE OUT
+                this.sparkleSound.play()
                 this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
                 this.scene.start('cutScene1')},
 
@@ -71,19 +81,12 @@ class Menu extends Phaser.Scene {
 
         }) 
        
-
-        // create input
-        //cursors = this.input.keyboard.createCursorKeys()
     }
 
     update() {
         //decoration
         this.flowers.tilePositionX -= 1
         this.stars.tilePositionX -= 2
-
-        // wait for player input, fade transition
-        this.playButton.once('pointerover',() => { ((this.playButton).setScale(0.23,0.23)).setOrigin(0.5, 0.5)})
-        this.playButton.once('pointerout',() => { ((this.playButton).setScale(0.2,0.2)).setOrigin(0.5, 0.5)})
         
         }
     }

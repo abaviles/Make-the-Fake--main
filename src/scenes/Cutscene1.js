@@ -5,18 +5,19 @@ class Cutscene1 extends Phaser.Scene {
 
     init() {
         // dialog constants
-        this.DBOX_X = 250		        // dialog box x-position
+        this.DBOX_X = 245		        // dialog box x-position
         this.DBOX_Y = 500			    // dialog box y-position
-        this.DBOX_FONT = 'gem_font'	    // dialog box font key
+        this.DBOX_FONT = 'depixel_font'	    // dialog box font key
+        
 
-        this.TEXT_X = 300			    // text w/in dialog box x-position
-        this.TEXT_Y = 545			    // text w/in dialog box y-position
-        this.TEXT_SIZE = 24		        // text font size (in pixels)
+        this.TEXT_X = 285			    // text w/in dialog box x-position
+        this.TEXT_Y = 560			    // text w/in dialog box y-position
+        this.TEXT_SIZE = 16		        // text font size (in pixels)
         this.TEXT_MAX_WIDTH = 715	    // max width of text within box
 
         this.NEXT_TEXT = '[SPACE]'	    // text to display for next prompt
-        this.NEXT_X = 1005			    // next text prompt x-position
-        this.NEXT_Y = 660			    // next text prompt y-position
+        this.NEXT_X = 1000			    // next text prompt x-position
+        this.NEXT_Y = 680			    // next text prompt y-position
 
         this.LETTER_TIMER = 10		    // # ms each letter takes to "type" onscreen
 
@@ -46,7 +47,7 @@ class Cutscene1 extends Phaser.Scene {
 
        
         //BG MUSIC
-        this.playMusic = this.sound.add(('bg music'), {volume: 0.15})
+        this.playMusic = this.sound.add(('bg music'), {volume: 0.25})
         this.playMusic.loop = true
         this.playMusic.play()
         
@@ -57,14 +58,13 @@ class Cutscene1 extends Phaser.Scene {
         this.class = this.add.sprite(0, 0, 'class').setOrigin(0,0) 
         this.dots = this.add.tileSprite(0, 0, 1280, 720, 'dots').setOrigin(0,0)
         
-        //Pillar
-        this.pillar = this.add.sprite(0, 0, 'pillar').setOrigin(0,0)
-        this.pillar2 = this.add.sprite(1280, 0, 'pillar').setOrigin(1,0)
-
         // ready the character dialog images offscreen
-        this.giffany = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y+8, 'giffany').setOrigin(0, 1)
-        this.giffany2 = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y+8, 'giffany2').setOrigin(0, 1)
-       
+        this.giffany = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y + 25, 'giffany').setOrigin(0, 1)
+        this.giffany2 = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y + 8, 'giffany2').setOrigin(0, 1)
+        
+        //Pillar
+        this.pillar = this.add.tileSprite(0, 0, 1280, 720, 'pillar').setOrigin(0,0)
+
         // add dialog box sprite
         this.dialogbox = this.add.sprite(this.DBOX_X + 8, this.OFFSCREEN_Y, 'dialogbox').setOrigin(0, 0)
 
@@ -75,16 +75,11 @@ class Cutscene1 extends Phaser.Scene {
         //d-box tween
         this.tweens.add({
             targets: this.dialogbox,
-            x: this.DBOX_X,
+            x: this.DBOX_X - 8,
             y: this.DBOX_Y,
             duration: this.tweenDuration,
             ease: 'power1'
         })
-
-
-
-        
-
 
         // input
         cursors = this.input.keyboard.createCursorKeys()
@@ -96,6 +91,8 @@ class Cutscene1 extends Phaser.Scene {
     update() {
 
         this.dots.tilePositionX += 2
+        this.pillar.tilePositionY += 0.5
+
         // check for spacebar press
         if(Phaser.Input.Keyboard.JustDown(cursors.space) && !this.dialogTyping) {
             this.sound.play('beep', {volume: 0.3})
@@ -165,9 +162,6 @@ class Cutscene1 extends Phaser.Scene {
                     duration: this.tweenDuration,
                     ease: 'power1'
                 })
-            
-                
-
             }
             
 
@@ -196,7 +190,7 @@ class Cutscene1 extends Phaser.Scene {
 
             // build dialog (concatenate speaker + colon + line of text)
             this.combinedDialog = 
-                this.dialog[this.dialogConvo][this.dialogLine]['speaker'].toUpperCase() 
+               'GIFFANY'
                 + ': ' 
                 + this.dialog[this.dialogConvo][this.dialogLine]['dialog']
 

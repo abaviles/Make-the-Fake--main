@@ -10,6 +10,11 @@ let config = {
     width: 1280,
     height: 720,
     scene: [Menu, Cutscene1],
+    
+    scale: {
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH
+    }
 }
 
 const game = new Phaser.Game(config)
