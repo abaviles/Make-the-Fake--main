@@ -19,6 +19,11 @@ class Menu extends Phaser.Scene {
         this.load.image('dots', 'img/polkadot.png')
         this.load.image('pillar', 'img/pillar.png')
         this.load.video('intro', 'img/game_intro.mp4', true)
+        this.load.image('heart','img/heart_sprite.png')
+        this.load.image('UIBox','img/UIBox_1.png')
+        this.load.image('Heartcart','img/heart_cart.png')
+
+
 
         //audio
         this.load.audio('start', 'sfx/start.wav')
@@ -26,6 +31,8 @@ class Menu extends Phaser.Scene {
         this.load.audio('beep', 'sfx/beep.wav')
         this.load.audio('bg music', 'sfx/bg_cutscene.mp3')
         this.load.audio('menu music', 'sfx/menu_music.mp3')
+        this.load.audio('heartcollected', 'sfx/heartcollect.mp3')
+
 
 
         // load bitmap font
@@ -34,6 +41,9 @@ class Menu extends Phaser.Scene {
         //decoration
         this.load.image('flowers', 'img/flowers.png')
         this.load.image('stars', 'img/stars.png')
+
+   
+
     }
 
     create() {

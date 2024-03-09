@@ -145,8 +145,8 @@ class Cutscene1 extends Phaser.Scene {
                         //this.playMusic.stop()
                         this.cameras.main.fadeOut(2000, 0, 0, 0)
                         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
-                        this.scene.start('menuScene')},
-
+                        this.scene.start('miniGame1')},
+                        
                         this.tweens.add({
                             targets:  this.playMusic,
                             volume:   0,
