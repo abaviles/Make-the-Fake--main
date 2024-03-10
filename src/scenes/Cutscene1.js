@@ -60,7 +60,7 @@ class Cutscene1 extends Phaser.Scene {
         
         // ready the character dialog images offscreen
         this.giffany = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y + 25, 'giffany').setOrigin(0, 1)
-        this.giffany2 = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y + 8, 'giffany2').setOrigin(0, 1)
+        this.giffany2 = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y + 25, 'giffany2').setOrigin(0, 1)
         
         //Pillar
         this.pillar = this.add.tileSprite(0, 0, 1280, 720, 'pillar').setOrigin(0,0)
