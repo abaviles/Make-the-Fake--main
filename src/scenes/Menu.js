@@ -9,11 +9,18 @@ class Menu extends Phaser.Scene {
 
         // load JSON (ie dialog text)
         this.load.json('dialog', 'json/dialog.json')
+        this.load.json('dialog2', 'json/dialog2.json')
 
         // load images
         this.load.image('dialogbox', 'img/dialogbox.png')
+        
+        //giffanys
         this.load.image('giffany', 'img/giffanytalk1.png')
         this.load.image('giffany2', 'img/giffanytalk2.png')
+        this.load.image('giffany3', 'img/giffanytalk3.png')
+        this.load.image('giffany4', 'img/giffanytalk4.png')
+
+        //extras
         this.load.image('play', 'img/play_button.png')
         this.load.image('class', 'img/classroom.png')
         this.load.image('dots', 'img/polkadot.png')
@@ -22,8 +29,6 @@ class Menu extends Phaser.Scene {
         this.load.image('heart','img/heart_sprite.png')
         this.load.image('UIBox','img/UIBox_1.png')
         this.load.image('Heartcart','img/heart_cart.png')
-
-
 
         //audio
         this.load.audio('start', 'sfx/start.wav')
@@ -70,14 +75,17 @@ class Menu extends Phaser.Scene {
                 //SOUND FX, THEN FADE OUT
                 this.sparkleSound.play()
                 this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
-                this.scene.start('cutScene1')},
+                this.scene.start('cutScene2')},
 
                 this.tweens.add({
                     targets:  this.menuMusic,
                     volume:   0,
-                    duration: 2000
-                    }))}
-                )
+                    duration: 2000,
+                    onComplete: () => {this.menuMusic.stop()}
+                    }))          
+                
+    })
+                
 
         this.flowers = this.add.tileSprite(0, 0, 1280, 720, 'flowers').setOrigin(0,0)
         this.stars = this.add.tileSprite(0, 0, 1280, 720, 'stars').setOrigin(0,0)

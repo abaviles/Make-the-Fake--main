@@ -1,0 +1,26 @@
+[
+	[
+		{
+			"speaker" : "giffany3",
+			"dialog" : "Only THIS many hearts?! YOU BARELY EVEN TRIED!",
+			"newSpeaker" : "false"
+		},
+        {
+			"speaker" : "giffany3",
+			"dialog" : "It's like...it's like you dont even CARE ABOUT ME!",
+			"newSpeaker" : "false"
+		},
+        {
+			"speaker" : "giffany3",
+			"dialog" : "I give you a game to play, try to give you fun things to do, and perform like THIS?! You're acting as if you wanna go do other things outside of hanging out with me--",
+			"newSpeaker" : "false"
+		},
+        {
+			"speaker" : "giffany4",
+			"dialog" : "Wait...y-you do like hanging out with me...right?",
+			"newSpeaker" : "false"
+		}
+
+        
+    ]
+]
