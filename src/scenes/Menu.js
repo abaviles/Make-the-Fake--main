@@ -10,6 +10,8 @@ class Menu extends Phaser.Scene {
         // load JSON (ie dialog text)
         this.load.json('dialog', 'json/dialog.json')
         this.load.json('dialog2', 'json/dialog2.json')
+        this.load.json('dialog3', 'json/dialog3.json')
+        this.load.json('dialog4', 'json/dialog4.json')
 
         // load images
         this.load.image('dialogbox', 'img/dialogbox.png')
@@ -19,16 +21,20 @@ class Menu extends Phaser.Scene {
         this.load.image('giffany2', 'img/giffanytalk2.png')
         this.load.image('giffany3', 'img/giffanytalk3.png')
         this.load.image('giffany4', 'img/giffanytalk4.png')
+        this.load.image('giffany5', 'img/giffanyglitch1.png')
 
         //extras
         this.load.image('play', 'img/play_button.png')
         this.load.image('class', 'img/classroom.png')
         this.load.image('dots', 'img/polkadot.png')
         this.load.image('pillar', 'img/pillar.png')
-        this.load.video('intro', 'img/game_intro.mp4', true)
         this.load.image('heart','img/heart_sprite.png')
         this.load.image('UIBox','img/UIBox_1.png')
-        this.load.image('Heartcart','img/heart_cart.png')
+        this.load.image('Heartcart','img/heart_cart.png') 
+        
+        //videos
+        this.load.video('intro', 'img/game_intro.mp4', true)
+        this.load.video('badEnding2', 'img/Bad Ending 2.mp4', true)
 
         //audio
         this.load.audio('start', 'sfx/start.wav')
@@ -37,6 +43,7 @@ class Menu extends Phaser.Scene {
         this.load.audio('bg music', 'sfx/bg_cutscene.mp3')
         this.load.audio('menu music', 'sfx/menu_music.mp3')
         this.load.audio('heartcollected', 'sfx/heartcollect.mp3')
+        this.load.audio('daisy', 'sfx/daisyBell.mp3')
 
 
 

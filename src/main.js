@@ -9,7 +9,7 @@ let config = {
     type: Phaser.AUTO,
     width: 1280,
     height: 720,
-    scene: [Menu, Cutscene1, Minigame1, Cutscene2],
+    scene: [Menu, Cutscene1, Minigame1, Cutscene2, BadEnding, BadEnding2],
     
     scale: {
         mode: Phaser.Scale.FIT,

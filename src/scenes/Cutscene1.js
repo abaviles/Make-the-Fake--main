@@ -182,7 +182,7 @@ class Cutscene1 extends Phaser.Scene {
                 // tween in new speaker's image
                 this.tweens.add({
                     targets: this[this.dialogSpeaker],
-                    x: this.DBOX_X + 50,
+                    x: this.DBOX_X + 135,
                     duration: this.tweenDuration,
                     ease: 'power1'
                 })
