@@ -47,7 +47,7 @@ class BadEnding2 extends Phaser.Scene {
         this.dialog = this.cache.json.get('dialog4')
         
         //music
-        this.song = this.sound.add(('daisy'), {volume: 0.5})
+        this.song = this.sound.add(('daisy'), {volume: 0.25})
         this.song.loop = true
         this.song.play()
         

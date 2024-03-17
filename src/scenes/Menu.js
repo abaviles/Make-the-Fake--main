@@ -12,6 +12,7 @@ class Menu extends Phaser.Scene {
         this.load.json('dialog2', 'json/dialog2.json')
         this.load.json('dialog3', 'json/dialog3.json')
         this.load.json('dialog4', 'json/dialog4.json')
+        this.load.json('dialog5', 'json/dialog5.json')
 
         // load images
         this.load.image('dialogbox', 'img/dialogbox.png')
@@ -22,6 +23,7 @@ class Menu extends Phaser.Scene {
         this.load.image('giffany3', 'img/giffanytalk3.png')
         this.load.image('giffany4', 'img/giffanytalk4.png')
         this.load.image('giffany5', 'img/giffanyglitch1.png')
+        this.load.image('giffany6', 'img/giffany_good.png')
 
         //extras
         this.load.image('play', 'img/play_button.png')
@@ -35,6 +37,8 @@ class Menu extends Phaser.Scene {
         //videos
         this.load.video('intro', 'img/game_intro.mp4', true)
         this.load.video('badEnding2', 'img/Bad Ending 2.mp4', true)
+        this.load.video('goodEndIntro', 'img/GoodEndingIntro.mp4', true)
+        this.load.video('goodEnding', 'img/GoodEnding.mp4', true)
 
         //audio
         this.load.audio('start', 'sfx/start.wav')
@@ -44,6 +48,7 @@ class Menu extends Phaser.Scene {
         this.load.audio('menu music', 'sfx/menu_music.mp3')
         this.load.audio('heartcollected', 'sfx/heartcollect.mp3')
         this.load.audio('daisy', 'sfx/daisyBell.mp3')
+        this.load.audio('good', 'sfx/goodEnd.mp3')
 
 
 
@@ -82,11 +87,11 @@ class Menu extends Phaser.Scene {
                 //SOUND FX, THEN FADE OUT
                 this.sparkleSound.play()
                 this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
-                this.scene.start('cutScene2')},
+                this.scene.start('cutScene1')},
 
                 this.tweens.add({
                     targets:  this.menuMusic,
-                    volume:   0,
+                    volume:   {from: 0.5, to: 0},
                     duration: 2000,
                     onComplete: () => {this.menuMusic.stop()}
                     }))          

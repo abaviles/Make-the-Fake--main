@@ -24,8 +24,21 @@
 			"speaker" : "giffany5",
 			"dialog" : "SIT BACK DOWN AND DO BETTER; BECAUSE I'M NOT LETTING YOU GO.",
 			"newSpeaker" : "false"
+		},
+		{
+			"speaker" : "giffany5",
+			"dialog" : "You're MINE.",
+			"newSpeaker" : "false"
+		},
+		{
+			"speaker" : "giffany5",
+			"dialog" : "MINE.",
+			"newSpeaker" : "false"
+		},
+        {
+			"speaker" : "giffany5",
+			"dialog" : "MINE!",
+			"newSpeaker" : "false"
 		}
-     
-        
     ]
 ]

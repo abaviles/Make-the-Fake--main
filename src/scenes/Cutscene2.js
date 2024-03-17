@@ -212,6 +212,10 @@ class Cutscene2 extends Phaser.Scene {
 
     this.choice1.on(Phaser.Input.Events.GAMEOBJECT_POINTER_OUT,() => {((this.choice1).setScale(1, 1)).setOrigin(0, 0)})
     this.choice1.on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER,() => {((this.choice1).setScale(1.05,1.05)).setOrigin(0, 0), this.startSound.play()})
+    this.choice1.once(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,() => {this.cameras.main.fadeOut(2000, 0, 0, 0)
+        this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+        this.scene.start('goodEnding')})})
+
     
     this.choice2 = this.add.bitmapText(this.TEXT_X, this.TEXT_Y + 80, this.DBOX_FONT, "* Nah, I kinda wanna touch some grass.", this.TEXT_SIZE)
     this.choice2.setInteractive()
