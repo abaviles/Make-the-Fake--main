@@ -38,7 +38,7 @@ class BadEnding extends Phaser.Scene {
     }
 
     create() {
-        endCount += 1
+        
         //BG MUSIC
         
         this.startSound = this.sound.add(('beep'), {volume: 0.25})

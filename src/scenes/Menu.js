@@ -135,7 +135,7 @@ class Menu extends Phaser.Scene {
                 this.scene.stop('extraScene')
                 this.sparkleSound.play()
                 this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
-                this.menuMusic.stop(), this.scene.start('cutScene1')},
+                this.menuMusic.stop(), this.scene.start('cutScene2')},
                 
                 this.tweens.add({
                     targets:  this.menuMusic,
