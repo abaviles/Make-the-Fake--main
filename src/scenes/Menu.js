@@ -104,6 +104,7 @@ class Menu extends Phaser.Scene {
         this.extrasButton.once(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,() => {this.cameras.main.fadeOut(2000, 0, 0, 0)
                 
             //SOUND FX, THEN FADE OUT
+                this.playButton.removeInteractive()
                 this.sparkleSound.play()
                 this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
                 this.menuMusic.stop(), this.scene.start('extraScene')},
@@ -122,6 +123,8 @@ class Menu extends Phaser.Scene {
         this.playButton.once(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,() => {this.cameras.main.fadeOut(2000, 0, 0, 0)
                 
             //SOUND FX, THEN FADE OUT
+                this.extrasButton.removeInteractive()
+                this.scene.stop('extraScene')
                 this.sparkleSound.play()
                 this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
                 this.menuMusic.stop(), this.scene.start('cutScene1')},
@@ -131,6 +134,7 @@ class Menu extends Phaser.Scene {
                     volume:   {from: 0.5, to: 0},
                     duration: 2000,
                     }))          
+                
                 
         })
                 
