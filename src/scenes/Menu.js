@@ -80,6 +80,14 @@ class Menu extends Phaser.Scene {
     }
 
     create() {
+        this.cameras.main.fadeIn(500, 0, 0, 0)
+            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+                this.time.delayedCall(500, () => {
+                    this.scene.start('menuScene')
+                    this.scene.stop('extraScene')
+                })
+            })
+        this.scene.stop('extraScene')
         // add title text
         this.menuMusic = this.sound.add(('menu music'), {volume: 0.5})
         this.menuMusic.play()
