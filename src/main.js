@@ -9,7 +9,7 @@ let config = {
     type: Phaser.AUTO,
     width: 1280,
     height: 720,
-    scene: [Menu, Cutscene1, Minigame1, Cutscene2, BadEnding, BadEnding2, GoodEnding],
+    scene: [Menu, Cutscene1, Minigame1, Cutscene2, BadEnding, BadEnding2, GoodEnding, Extras],
     
     scale: {
         mode: Phaser.Scale.FIT,
@@ -27,3 +27,4 @@ const centerX = game.config.width / 2
 const centerY = game.config.height / 2
 let cursors = null
 let keyRIGHT, keyLEFT 
+

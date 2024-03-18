@@ -47,6 +47,8 @@ class Cutscene2 extends Phaser.Scene {
 
        
         //BG MUSIC
+        this.menuMusic = this.sound.add(('menu music'), {volume: 0})
+        
         this.playMusic = this.sound.add(('bg music'), {volume: 0.25})
         this.playMusic.loop = true
         this.playMusic.play()

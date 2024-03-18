@@ -2,7 +2,21 @@ class Menu extends Phaser.Scene {
     constructor() {
         super("menuScene")
     }
+    init() {
+        // dialog constants
+        this.DBOX_X = 245		        // dialog box x-position
+        this.DBOX_Y = 500			    // dialog box y-position
+        this.DBOX_FONT = 'depixel_font'	    // dialog box font key
+        
+        this.TEXT_X = 285			    // text w/in dialog box x-position
+        this.TEXT_Y = 560			    // text w/in dialog box y-position
+        this.TEXT_SIZE = 16		        // text font size (in pixels)
+        this.TEXT_MAX_WIDTH = 715	    // max width of text within box
 
+        this.NEXT_TEXT = '[SPACE]'	    // text to display for next prompt
+        this.NEXT_X = 1000			    // next text prompt x-position
+        this.NEXT_Y = 680
+    }		
     preload() {
         // load assets
         this.load.path = "./assets/"
@@ -23,7 +37,7 @@ class Menu extends Phaser.Scene {
         this.load.image('giffany3', 'img/giffanytalk3.png')
         this.load.image('giffany4', 'img/giffanytalk4.png')
         this.load.image('giffany5', 'img/giffanyglitch1.png')
-        this.load.image('giffany6', 'img/giffany_good.png')
+        this.load.image('giffany6', 'img/giffany_good2.png')
 
         //extras
         this.load.image('play', 'img/play_button.png')
@@ -38,7 +52,8 @@ class Menu extends Phaser.Scene {
         this.load.video('intro', 'img/game_intro.mp4', true)
         this.load.video('badEnding2', 'img/Bad Ending 2.mp4', true)
         this.load.video('goodEndIntro', 'img/GoodEndingIntro.mp4', true)
-        this.load.video('goodEnding', 'img/GoodEnding.mp4', true)
+        this.load.video('goodEnding', 'img/GoodEnding_1.mp4', true)
+        this.load.video('extras', 'img/Extras.mp4', true)
 
         //audio
         this.load.audio('start', 'sfx/start.wav')
@@ -49,6 +64,7 @@ class Menu extends Phaser.Scene {
         this.load.audio('heartcollected', 'sfx/heartcollect.mp3')
         this.load.audio('daisy', 'sfx/daisyBell.mp3')
         this.load.audio('good', 'sfx/goodEnd.mp3')
+        this.load.audio('extrasAudio', 'sfx/Extras.wav')
 
 
 
@@ -76,27 +92,47 @@ class Menu extends Phaser.Scene {
         this.intro.play()
 
         
-
-        this.playButton = (this.add.image(1400, 550, 'play').setScale(0.2, 0.2)).setOrigin(0.5,0.5)
+        this.playButton = (this.add.bitmapText(1300, 500, this.DBOX_FONT, "Play", this.TEXT_SIZE * 2).setOrigin(0, 0))
         this.playButton.setInteractive()
+
+        this.extrasButton = (this.add.bitmapText(1300, 600, this.DBOX_FONT, "Extras", this.TEXT_SIZE * 2).setOrigin(0, 0))
+        this.extrasButton.setInteractive()
         
-        //button physics
-        this.playButton.on(Phaser.Input.Events.GAMEOBJECT_POINTER_OUT,() => {((this.playButton).setScale(0.2,0.2)).setOrigin(0.5, 0.5)})
-        this.playButton.on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER,() => {((this.playButton).setScale(0.23,0.23)).setOrigin(0.5, 0.5), this.startSound.play()})
-        this.playButton.once(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,() => {this.cameras.main.fadeOut(2000, 0, 0, 0)
-                //SOUND FX, THEN FADE OUT
+        //Extras Scene Transition
+        this.extrasButton.on(Phaser.Input.Events.GAMEOBJECT_POINTER_OUT,() => {((this.extrasButton).setScale(1, 1)).setOrigin(0, 0)})
+        this.extrasButton.on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER,() => {((this.extrasButton).setScale(1.05,1.05)).setOrigin(0, 0), this.startSound.play()})
+        this.extrasButton.once(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,() => {this.cameras.main.fadeOut(2000, 0, 0, 0)
+                
+            //SOUND FX, THEN FADE OUT
                 this.sparkleSound.play()
                 this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
-                this.scene.start('cutScene1')},
-
+                this.menuMusic.stop(), this.scene.start('extraScene')},
+                
                 this.tweens.add({
                     targets:  this.menuMusic,
                     volume:   {from: 0.5, to: 0},
                     duration: 2000,
-                    onComplete: () => {this.menuMusic.stop()}
                     }))          
                 
-    })
+                      
+})    
+        //Play Scene Transition
+        this.playButton.on(Phaser.Input.Events.GAMEOBJECT_POINTER_OUT,() => {((this.playButton).setScale(1,1)).setOrigin(0,0)})
+        this.playButton.on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER,() => {((this.playButton).setScale(1.05, 1.05)).setOrigin(0,0), this.startSound.play()})
+        this.playButton.once(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,() => {this.cameras.main.fadeOut(2000, 0, 0, 0)
+                
+            //SOUND FX, THEN FADE OUT
+                this.sparkleSound.play()
+                this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+                this.menuMusic.stop(), this.scene.start('cutScene1')},
+                
+                this.tweens.add({
+                    targets:  this.menuMusic,
+                    volume:   {from: 0.5, to: 0},
+                    duration: 2000,
+                    }))          
+                
+        })
                 
 
         this.flowers = this.add.tileSprite(0, 0, 1280, 720, 'flowers').setOrigin(0,0)
@@ -105,9 +141,15 @@ class Menu extends Phaser.Scene {
         this.intro.on('complete', () => {
             this.tweens.add({
                 targets:this.playButton,
-                x: 980,
+                x: 915,
                 duration: 500,
-                ease: 'power2'})
+                ease: 'power2'}),
+
+                this.tweens.add({
+                    targets:this.extrasButton,
+                    x: 900,
+                    duration: 500,
+                    ease: 'power2'})
 
         }) 
        

@@ -38,6 +38,8 @@ class GoodEnding extends Phaser.Scene {
     }
 
     create() {
+        endCount += 1
+        
         this.cameras.main.fadeIn(4000, 0, 0, 0)
             this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
                 this.time.delayedCall(5000, () => {
@@ -70,8 +72,8 @@ class GoodEnding extends Phaser.Scene {
         this.GoodEnding.play('loop', 0, 5)
         
         //giffany
-        this.giffany = this.add.sprite(640, this.DBOX_Y - 210, 'giffany5').setOrigin(0.5, 0.5)
-        this.giffany.visible = false
+        this.giffany = (this.add.sprite(this.OFFSCREEN_X, 360, 'giffany6').setScale(0.5, 0.5)).setOrigin(0.5, 0.5)
+        //this.giffany.visible = false
         
 
         //Pillar
@@ -181,6 +183,7 @@ class GoodEnding extends Phaser.Scene {
                         volume:   {from: 0.5, to: 0},
                         duration: 2000,
                         })
+                       this.goodMusic.stop()
                        this.scene.start('menuScene')
                               
                 }})}
@@ -203,7 +206,8 @@ class GoodEnding extends Phaser.Scene {
                 // tween in new speaker's image
                 this.tweens.add({
                     targets: this[this.dialogSpeaker],
-                    x: this.DBOX_X - 50, 
+                    x: 640,
+                    y: 360, 
                     duration: this.tweenDuration,
                     ease: 'power1'
                 })
