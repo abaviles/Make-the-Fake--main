@@ -71,6 +71,7 @@ class Minigame1 extends Phaser.Scene {
        this.gameover = false
 
        setTimeout(() => { this.ending(this.p1Score);}, 60000)
+       //sets the timer and adds text to screen for timer
     this.time1 = 60
     this.timerLeft = this.add.text(borderUISize + borderPadding, 235, 'Time:' + this.time1, timerConfig)
        this.timer = this.time.addEvent({
