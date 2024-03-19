@@ -39,7 +39,7 @@ class Minigame1 extends Phaser.Scene {
 
      //initialize score 
         this.p1Score = 0 
-        this.timer = 60
+        
          // display score 
        let scoreConfig = {
         fontFamily: 'depixel_font',
@@ -52,7 +52,7 @@ class Minigame1 extends Phaser.Scene {
           },
           fixedWidth: 100 
        }
-       //display timer
+
        let timerConfig = {
         fontFamily: 'depixel_font',
         fontSize: '28px',
@@ -66,12 +66,31 @@ class Minigame1 extends Phaser.Scene {
        }
        //sets the score
        this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, 'Score:' + this.p1Score, scoreConfig)
-       //sets time 
-       this.timerLeft = this.add.text(borderUISize + borderPadding, 235, 'Time:' + this.timer, timerConfig)
- 
+      
        //Game Over Flag 
+       this.gameover = false
+
        setTimeout(() => { this.ending(this.p1Score);}, 60000)
-       setInterval(() => {this.timerfunc()},1000)
+    this.time1 = 60
+    this.timerLeft = this.add.text(borderUISize + borderPadding, 235, 'Time:' + this.time1, timerConfig)
+       this.timer = this.time.addEvent({
+        delay: 1000,
+        repeat: 60,
+        callback: () => { 
+            this.time1 -= 1
+            this.timerLeft.text = 'Time:' + this.time1
+            
+            
+    this.scoreLeft.text = 'Score:' + this.p1Score
+            // (necessary since Phaser 3 no longer seems to have an onComplete event)
+            if(this.timer.getRepeatCount() == 0) {
+               
+                this.timer.destroy()    // destroy timer
+            }
+        },
+        callbackScope: this // keep Scene context
+    })
+   
     }
 
    
@@ -109,12 +128,6 @@ class Minigame1 extends Phaser.Scene {
         
     }
 
-    //function which updates the timer onscreen
-    timerfunc(){
-        this.timer -= 1
-        this.timerLeft.text = 'Time:' + this.timer
-        
-    }
 
 Collision(basket,heart){
     //If a collision happens sends back true or false
@@ -165,12 +178,12 @@ heartPop(heart){
 // determines ending the player will see based on score
 ending(score){
     if(score >= 30){
-       
+            this.gameover = true
             this.menuMusic.stop(), this.scene.start('goodEnding')
     }
     else{
 
-        
+        this.gameover = true
         this.menuMusic.stop(), this.scene.start('cutScene2')
     }
 }
