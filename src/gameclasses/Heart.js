@@ -7,7 +7,7 @@ class Heart extends Phaser.GameObjects.Sprite{
         //add object to existing scene 
         scene.add.existing(this)// add to existing scene
         this.points = pointValue // store point value
-        this.moveSpeed = 1.5 //heart speed in piexels/frame
+        this.moveSpeed = 1.8 //heart speed in piexels/frame
         this.initialY = this.y // initial y cord used for reset 
     }
     update(){
