@@ -42,17 +42,22 @@ class Extras extends Phaser.Scene {
 
     
 
-        //Play Scene Transition
+        //Menu Scene Transition
         this.playButton.on(Phaser.Input.Events.GAMEOBJECT_POINTER_OUT,() => {((this.playButton).setScale(1,1)).setOrigin(0,0)})
         this.playButton.on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER,() => {((this.playButton).setScale(1.05, 1.05)).setOrigin(0,0), this.startSound.play()})
-        this.playButton.once(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,() => {this.cameras.main.fadeOut(2000, 0, 0, 0)})
-
-        this.cameras.main.fadeIn(2500, 0, 0, 0)
-            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
-                this.time.delayedCall(3000, () => {
-                    this.scene.start('menuScene')
-                }) 
+        this.playButton.once(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,() => {this.cameras.main.fadeOut(2000, 0, 0, 0)},  this.cameras.main.fadeIn(2500, 0, 0, 0),
+        this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+            this.time.delayedCall(1000, () => {
+                this.extras.stop() 
+                this.tweens.add({
+                    targets:  this.extrasAudio,
+                    volume:   {from: 0.5, to: 0},
+                    duration: 2000,
+                    })
+                this.extrasAudio.stop()
+                this.scene.start('menuScene')
             })
+        }))
         
     }
 }

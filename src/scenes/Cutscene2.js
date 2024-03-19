@@ -214,7 +214,7 @@ class Cutscene2 extends Phaser.Scene {
 
     this.choice1.on(Phaser.Input.Events.GAMEOBJECT_POINTER_OUT,() => {((this.choice1).setScale(1, 1)).setOrigin(0, 0)})
     this.choice1.on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER,() => {((this.choice1).setScale(1.05,1.05)).setOrigin(0, 0), this.startSound.play()})
-    this.choice1.once(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,() => {this.cameras.main.fadeOut(2000, 0, 0, 0)
+    this.choice1.once(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,() => {this.cameras.main.fadeOut(2000, 0, 0, 0), this.choice2.removeInteractive()
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
         this.scene.start('goodEnding')})})
 
@@ -224,7 +224,7 @@ class Cutscene2 extends Phaser.Scene {
 
     this.choice2.on(Phaser.Input.Events.GAMEOBJECT_POINTER_OUT,() => {((this.choice2).setScale(1, 1)).setOrigin(0, 0)})
     this.choice2.on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER,() => {((this.choice2).setScale(1.05,1.05)).setOrigin(0, 0), this.startSound.play()})
-    this.choice2.once(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,() => {this.scene.start('badEnding')})
+    this.choice2.once(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,() => {this.scene.start('badEnding'), this.choice1.removeInteractive()}, )
 
     
     //this.choice1.once(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,() => {this.cameras.main.fadeOut(2000, 0, 0, 0)})
