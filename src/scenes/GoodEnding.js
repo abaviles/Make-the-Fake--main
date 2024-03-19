@@ -38,7 +38,7 @@ class GoodEnding extends Phaser.Scene {
     }
 
     create() {
-        endCount += 1
+        //endCount += 1
         
         this.cameras.main.fadeIn(4000, 0, 0, 0)
             this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {

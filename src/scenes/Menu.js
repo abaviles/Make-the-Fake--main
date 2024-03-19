@@ -47,6 +47,7 @@ class Menu extends Phaser.Scene {
         this.load.image('heart','img/heart_sprite.png')
         this.load.image('UIBox','img/UIBox_1.png')
         this.load.image('Heartcart','img/heart_cart.png') 
+        this.load.image('heartbreak','img/heartbreak.png') 
         
         //videos
         this.load.video('intro', 'img/game_intro.mp4', true)

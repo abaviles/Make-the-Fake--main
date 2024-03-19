@@ -5,14 +5,14 @@ class Heartcart extends Phaser.GameObjects.Sprite{
         //add object to existing scene 
         scene.add.existing(this)
         
-        this.moveSpeed = 3
+        this.moveSpeed = 4
         
     }
     update(){
-        //left right movement 
-        if(keyLEFT.isDown && this.x >= borderUISize + this.width){
+        //left right movement also limits how far the basket can move
+        if(keyLEFT.isDown && this.x - 40> borderUISize + this.width){
                 this.x -= this.moveSpeed
-        }else if(keyRIGHT.isDown && this.x <= game.config.width - borderUISize - this.width){
+        }else if(keyRIGHT.isDown && this.x + 40 < game.config.width - borderUISize - this.width){
                 this.x += this.moveSpeed
         }      
     }
